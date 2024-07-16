@@ -1,0 +1,47 @@
+<div class="">
+    <p>games works! {{username}}</p>
+    <h1>Formulario opt:   {{applyForm.get('options')?.value?.[0]}}</h1>
+    <form [formGroup]="applyForm" (submit)="submitApplication()">
+        <label for="first-name"></label>
+        <input type="text" id='first-name' placeholder="First Name" formControlName="firstName">
+        <div class="alert alert-danger"
+            [hidden]="applyForm.controls.firstName.valid || !applyForm.controls.firstName.touched">
+            Primer nombre es Requerido
+        </div>
+        <label for="email"></label>
+        <input type="text" id='email' placeholder="Email" formControlName="email">
+        <div class="">
+            <div *ngIf="applyForm.controls.email.errors?.['required']">
+                <span>Required error</span>
+            </div>
+            <div *ngIf="applyForm.controls.email.errors?.['email']">
+                <span>
+                    Formato email error
+                </span>
+            </div>
+        </div>
+        <label for="last-name"></label>
+        <input type="text" id='last-name' placeholder="Last Name" formControlName="lastName">
+        <!-- {{applyForm.controls.lastName.customValidator}} -->
+        <div class="">
+            <label for="options">Elige tus opciones:</label>
+            <select id="options" formControlName="options" multiple >
+                @for(option of [{name:'Option1', id:1},{name:'Option2', id:2},{name:'Option3', id:3},]; track option){
+                    <option  [value]="option.id">{{
+                        option.name
+                        }}</option>
+                } 
+            </select>
+        </div>
+        <button type="submit" [disabled]="applyForm.invalid">Guardar los datos de
+            {{applyForm.get('firstName')?.value}}</button>
+    </form>
+    <ul>
+        @for(game of games; track game.id){
+        <li (click)="fav(game.name)">
+            {{game.name}}
+        </li>
+        }
+    </ul>
+
+</div>

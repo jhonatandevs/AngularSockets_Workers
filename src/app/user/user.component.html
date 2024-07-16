@@ -1,0 +1,28 @@
+<section>
+    @if(isLoggedIn){
+    <p>Bienvenido, {{username}}</p>
+    <img (click)="greet()" src="https://github.com/midudev.png" alt="photo">
+    <ul>
+        @for(person of people; track person.name){
+            <li>{{person.name}}</li>
+        }
+    </ul>
+    }
+    @else {
+    <p>Inicia sesion primero</p>
+    }
+    <hr>
+    <h1>NUEVA FORMA DE FETCH CON INTERCEPTOR</h1>
+<pre>
+    {{people2$ |async |json}}
+</pre>
+<app-games username="{{username}}" (addFavoriteEvent)="getFavorite($event)"></app-games>
+</section> 
+<section>
+    <h2>WebSocket Demo</h2>
+    <input #messageInput type="text" placeholder="Type a message">
+    <button (click)="sendMessage(messageInput.value)">Send Message</button>
+    <ul>
+      <li *ngFor="let message of messages">{{ message }}</li>
+    </ul>
+</section>
